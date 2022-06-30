@@ -29,11 +29,22 @@ fetch(endoint)
 
     temp += `</table>`;
     output.innerHTML = temp;
+  })
+  .catch((err) => {
+    console.log("There is an error" + err.message);
   });
 
 fetch(endoint)
-  .then((blob) => blob.json())
-  .then((data) => movies.push(...data));
+.then((res) => {
+  if (res.ok) {
+    return res.json();
+  }
+  throw new Error("Error while rendernig data");
+})
+  .then((data) => movies.push(...data))
+  .catch((err) => {
+    console.log("There is an error" + err.message);
+  });
 
 const search = document.querySelector(".filter-input");
 function filter(e) {
