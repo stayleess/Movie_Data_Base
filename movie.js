@@ -6,7 +6,12 @@ const endoint =
   "https://raw.githubusercontent.com/hjorturlarsen/IMDB-top-100/master/data/movies.json";
 
 fetch(endoint)
-  .then((blob) => blob.json())
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    throw new Error("Error while rendernig data");
+  })
   .then((movies) => {
     let temp = `<table>`;
     tableHeader.forEach(
